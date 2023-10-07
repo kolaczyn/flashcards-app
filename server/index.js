@@ -12,11 +12,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const host_name = process.env.HOST_NAME;
-const user = process.env.USER;
-const password = process.env.PASSWORD;
-const database = process.env.DATABASE;
-const database_port = process.env.PORT;
+const {
+  HOST_NAME,
+  SER,
+  PASSWORD,
+  DATABASE,
+  PORT
+} = process.env;
 
 const connection = mysql.createConnection({
   host: host_name,
@@ -26,7 +28,7 @@ const connection = mysql.createConnection({
   port: database_port,
 });
 
-app.post("/insert", (req, res) => {
+app.post("/set", (req, res) => {
   const tableName = req.body.tableName;
   const dataArray = req.body.qnaArray;
   const values = dataArray.map((item) => [item.question, item.answer]);
@@ -55,7 +57,7 @@ app.post("/insert", (req, res) => {
   );
 });
 
-app.delete("/delete/:tableName", (req, res) => {
+app.delete("/set/:tableName", (req, res) => {
   const tableName = req.params.tableName;
   connection.query("DROP TABLE ??", [tableName], (err) => {
     if (err) throw new Error(err);
@@ -63,7 +65,7 @@ app.delete("/delete/:tableName", (req, res) => {
   });
 });
 
-app.get("/getsets", (req, res) => {
+app.get("/set", (req, res) => {
   connection.query("show tables in ??", [database], (err, result) => {
     if (err) throw new Error(err);
     const data = JSON.parse(JSON.stringify(result));
@@ -71,7 +73,7 @@ app.get("/getsets", (req, res) => {
   });
 });
 
-app.get("/getquestions/:flashcardId", (req, res) => {
+app.get("/set/:tableName", (req, res) => {
   const flashcardId = req.params.flashcardId;
   connection.query(
     "SELECT question, answer FROM ??",
