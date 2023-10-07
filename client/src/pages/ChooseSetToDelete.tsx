@@ -4,8 +4,8 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import DeleteSet from "./pages_components/DeleteSet";
 
-type setNameObject = {
-  Tables_in_flashcards: string;
+type SetNameObject = {
+  name: string;
 };
 
 export default function ChooseSetToDelete() {
@@ -26,7 +26,7 @@ export default function ChooseSetToDelete() {
     axios.delete(`http://localhost:5174/delete/${set}`);
     setSetsName((prevSetsName) =>
       prevSetsName.filter(
-        (prevSetName: setNameObject) => prevSetName.Tables_in_flashcards !== set
+        (prevSetName: SetNameObject) => prevSetName.Tables_in_flashcards !== set
       )
     );
   }
@@ -35,7 +35,7 @@ export default function ChooseSetToDelete() {
     <div className={styles.main}>
       <h1 className={styles.flashcardsText}>Choose set to delete: </h1>
       <ul>
-        {setsName.map((setNameObject: setNameObject) => (
+        {setsName.map((setNameObject: SetNameObject) => (
           <DeleteSet
             setName={setNameObject.Tables_in_flashcards}
             key={uuidv4()}

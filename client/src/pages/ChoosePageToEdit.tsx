@@ -4,17 +4,21 @@ import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import LinkComponent from "./pages_components/LinkComponent";
 
-type setNameObject = {
+type SetNameObject = {
   Tables_in_flashcards: string;
 };
 
+type SetsDto = {
+  Tables_in_flashcards: string
+}[]
+
 export default function ChoosePageToEdit() {
-  const [setsName, setSetsName] = useState([]);
+  const [setsName, setSetsName] = useState<SetsDto>([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5174/getsets")
-      .then((res: any) => {
+      .get<SetsDto>("http://localhost:5174/getsets")
+      .then((res) => {
         setSetsName(res.data);
       })
       .catch((error) => {
@@ -25,10 +29,10 @@ export default function ChoosePageToEdit() {
     <div className={styles.main}>
       <h1 className={styles.pageToEditText}>Choose page to edit </h1>
       <ul>
-        {setsName.map((setNameObject: setNameObject) => (
+        {setsName.map((setNameObject) => (
           <LinkComponent
             setName={setNameObject.Tables_in_flashcards}
-            key={uuidv4()}
+            key={setNameObject}
             subpageName='editsetform'
           />
         ))}

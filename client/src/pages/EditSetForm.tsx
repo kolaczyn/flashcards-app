@@ -58,8 +58,7 @@ export default function EditSetForm() {
     <div className={styles.main}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <h1 className={styles.h1TableNameInfo}>Editing: {flashcardId} set</h1>
-        {fields.map((field, index) => {
-          return (
+        {fields.map((field, index) =>  (
             <div key={field.id} className={styles.questionWrapper}>
               <h2 className={styles.h2QuestionNumber}>Question {index + 1}</h2>
               <div className={styles.textareaWrapper}>
@@ -85,8 +84,7 @@ export default function EditSetForm() {
                 Delete
               </button>
             </div>
-          );
-        })}
+          ))}
         <div className={styles.buttonWrapper}>
           <button
             type='button'

@@ -14,6 +14,7 @@ const ACTIONS = {
   DECREMENT: "decrement",
 };
 
+// to mogłobybyć w innym pliku, ale moze byc
 function reducer(count: number, action: Action) {
   switch (action.type) {
     case ACTIONS.INCREMENT:
@@ -33,7 +34,7 @@ export default function UseFlashcardSet() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5174/getquestions/${flashcardId}`)
+      .get(`${API_URL}/getquestions/${flashcardId}`)
       .then((res: any) => {
         setQnaList(res.data);
       })
@@ -58,7 +59,10 @@ export default function UseFlashcardSet() {
             ? qnaList[count].question
             : qnaList[count].answer
           : ""}
+  
       </div>
+
+      {/* ten div to powinien być osobny komponent */}
       <div className={styles.arrowsCountWrapper}>
         <ArrowBackIosIcon
           className={count === 0 ? undefined : styles.arrowActive}
